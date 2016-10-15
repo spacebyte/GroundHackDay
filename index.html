@@ -66,6 +66,10 @@
 
 			blocks.enableBody = true;
 			
+			blocks2 = game.add.group(); // BLOCKS 2
+
+			blocks2.enableBody = true;
+			
 			scoreText = game.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#6CF' });
 			hpText = game.add.text(16, 50, 'HP: 3', { fontSize: '32px', fill: '#6CF' });
 			
@@ -92,7 +96,21 @@
 
 			}
 			
-			
+			for (var i = 3; i < 8; i++)
+			{
+				//  Create a block inside of the 'blocks' group
+				var block2 = blocks2.create(i * 120, 0, 'blockBig');
+
+				//  Let gravity do its thing
+				block2.body.gravity.y = Math.random();
+				
+				//collision
+				block2.body.collideWorldBounds = true;
+
+				//  This just gives each block a slightly random bounce value 0.8 + Math.random() * 0.2;
+				block2.body.bounce.y = 1;
+
+			}
 
             //  Un-comment this on to see the collision tiles
             // layer.debug = true;
