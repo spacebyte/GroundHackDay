@@ -89,7 +89,7 @@
 
 			blocks3.enableBody = true;
 			
-			scoreText = game.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#6CF' });
+			scoreText = game.add.text(16, 16, 'Score: 0/50', { fontSize: '32px', fill: '#6CF' });
 			hpText = game.add.text(16, 50, 'HP: 3', { fontSize: '32px', fill: '#6CF' });
 			alertText = game.add.text(100, 100, '', { fontSize: '64px', fill: '#6CF' });
 			
@@ -207,7 +207,7 @@
 			
 			block2.kill();
 			score += 10;
-			scoreText.text = 'score: ' + score;
+			scoreText.text = 'Score: ' + score +'/50';
 			if (score == 50){
 				player.kill();
 				music1.stop();
