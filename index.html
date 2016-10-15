@@ -27,6 +27,7 @@
             game.load.image('blockSmall', 'assets/block.png');
             game.load.image('blockBig', 'assets/block2.png');
             game.load.image('background', 'assets/bg3.png');
+			game.load.audio('music1', ['assets/audio/music1.mp3', 'assets/audio/music1.ogg']);
 
         }
 
@@ -43,8 +44,13 @@
 		var scoreText;
 		var hp = 3;
 		var hpText;
+		var music1;
 
         function create() {
+		
+			music = game.add.audio('music1');
+
+			music.play();
 
             game.physics.startSystem(Phaser.Physics.ARCADE);
 
