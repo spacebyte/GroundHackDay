@@ -141,6 +141,7 @@
 
             game.physics.arcade.collide(player, layer);
 			game.physics.arcade.collide(blocks, layer);
+			game.physics.arcade.collide(blocks2, layer);
 			
 			//collide block with player
 			game.physics.arcade.overlap(player, blocks, hitBlock, null, this);
@@ -152,6 +153,25 @@
 			hpText.text = 'HP: ' + hp;
 			if (hp == 0){
 				player.kill();
+				alert('Game over!');
+				location.reload();
+			}
+			
+			}
+			
+			
+			//collide block2 with player
+			game.physics.arcade.overlap(player, blocks2, hitBlock2, null, this);
+			function hitBlock2 (player, block2) {
+			// Removes the player from the screen
+			
+			block2.kill();
+			score += 10;
+			scoreText.text = 'score: ' + score;
+			if (score == 50){
+				alert('Octocat wins!');
+				location.reload();
+				
 			}
 			
 			}
