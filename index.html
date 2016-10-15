@@ -24,8 +24,8 @@
             game.load.image('tiles-1', 'assets/tiles-1.png');
             game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
             game.load.spritesheet('droid', 'assets/droid.png', 32, 32);
-            game.load.image('starSmall', 'assets/star.png');
-            game.load.image('starBig', 'assets/star2.png');
+            game.load.image('blockSmall', 'assets/block.png');
+            game.load.image('blockBig', 'assets/block2.png');
             game.load.image('background', 'assets/background2.png');
 
         }
@@ -39,6 +39,10 @@
         var cursors;
         var jumpButton;
         var bg;
+		var score = 0;
+		var scoreText;
+		var hp = 3;
+		var hpText;
 
         function create() {
 
@@ -56,13 +60,46 @@
             map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
 
             layer = map.createLayer('Tile Layer 1');
+			
+			
+			blocks = game.add.group(); // BLOCKS
+
+			blocks.enableBody = true;
+			
+			scoreText = game.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#6CF' });
+			hpText = game.add.text(16, 50, 'HP: 3', { fontSize: '32px', fill: '#6CF' });
+			
+			scoreText.fixedToCamera = true;
+			hpText.fixedToCamera = true;
+
+			//  Here we'll create 7 of them evenly spaced apart
+			for (var i = 3; i < 9; i++)
+			{
+				//  Create a block inside of the 'blocks' group
+				var block = blocks.create(i * 100, 0, 'blockSmall');
+
+				//  Let gravity do its thing
+				block.body.gravity.y = Math.random();
+				
+				//collision
+				block.body.collideWorldBounds = true;
+
+				//  This just gives each block a slightly random bounce value 0.8 + Math.random() * 0.2;
+				block.body.bounce.y = 1;
+				
+				
+			
+
+			}
+			
+			
 
             //  Un-comment this on to see the collision tiles
             // layer.debug = true;
 
             layer.resizeWorld();
 
-            game.physics.arcade.gravity.y = 500;
+            game.physics.arcade.gravity.y = 300;
 
             player = game.add.sprite(32, 32, 'dude');
             game.physics.enable(player, Phaser.Physics.ARCADE);
@@ -85,7 +122,23 @@
         function update() {
 
             game.physics.arcade.collide(player, layer);
+			game.physics.arcade.collide(blocks, layer);
+			
+			//collide block with player
+			game.physics.arcade.overlap(player, blocks, hitBlock, null, this);
+			function hitBlock (player, block) {
+			// Removes the player from the screen
+			
+			block.kill();
+			hp--;
+			hpText.text = 'HP: ' + hp;
+			if (hp == 0){
+				player.kill();
+			}
+			
+			}
 
+			
             player.body.velocity.x = 0;
 
             if (cursors.left.isDown)
