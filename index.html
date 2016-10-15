@@ -180,6 +180,7 @@
 
             cursors = game.input.keyboard.createCursorKeys();
             jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+			enterButton = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 
         }
 
@@ -204,7 +205,9 @@
 				music1.stop();
 				music3.stop();
 				music2.play();
-				alertText.text = 'You Lose';
+				alertText.text = 'You Lose\n Retry: Spacebar';
+				
+
 			}
 			
 			}
@@ -224,8 +227,8 @@
 				music1.stop();
 				music2.stop();
 				music3.play();
-				alertText.text = 'You Win';
-				
+				alertText.text = 'You Win\n Retry: Spacebar';
+	
 			}
 			
 			}
@@ -243,9 +246,9 @@
 				music1.stop();
 				music3.stop();
 				music2.play();
-				alertText.text = 'You Lose';
-			
-	
+				alertText.text = 'You Lose\n Retry: Spacebar';
+				
+
 			}
 			
 			}
@@ -298,7 +301,14 @@
                 jumpTimer = game.time.now + 750;
 				jump.play();
             }
+			
+			if (hp == 0 && jumpButton.isDown){
+				location.reload();
+			}
 
+			if (score == 50 && jumpButton.isDown){
+				location.reload();
+			}
         }
 
         function render () {
