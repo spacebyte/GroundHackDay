@@ -28,6 +28,8 @@
             game.load.image('blockBig', 'assets/block2.png');
             game.load.image('background', 'assets/bg3.png');
 			game.load.audio('music1', ['assets/audio/music1.mp3', 'assets/audio/music1.ogg']);
+			game.load.audio('music2', ['assets/audio/music2.mp3', 'assets/audio/music2.ogg']);
+			game.load.audio('music3', ['assets/audio/music3.mp3', 'assets/audio/music3.ogg']);
 
         }
 
@@ -45,12 +47,18 @@
 		var hp = 3;
 		var hpText;
 		var music1;
+		var music2;
+		var music3;
+		var alert = "";
+		var alertText;
 
         function create() {
 		
-			music = game.add.audio('music1');
+			music1 = game.add.audio('music1');
+			music2 = game.add.audio('music2');
+			music3 = game.add.audio('music3');
 
-			music.play();
+			music1.play();
 
             game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -78,9 +86,11 @@
 			
 			scoreText = game.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#6CF' });
 			hpText = game.add.text(16, 50, 'HP: 3', { fontSize: '32px', fill: '#6CF' });
+			alertText = game.add.text(100, 100, '', { fontSize: '64px', fill: '#6CF' });
 			
 			scoreText.fixedToCamera = true;
 			hpText.fixedToCamera = true;
+			alertText.fixedToCamera = true;
 
 			//  Here we'll create 7 of them evenly spaced apart
 			for (var i = 3; i < 9; i++)
@@ -105,7 +115,7 @@
 			for (var i = 3; i < 8; i++)
 			{
 				//  Create a block inside of the 'blocks' group
-				var block2 = blocks2.create(i * 120, 0, 'blockBig');
+				var block2 = blocks2.create(i * 125, 0, 'blockBig');
 
 				//  Let gravity do its thing
 				block2.body.gravity.y = Math.random();
@@ -159,8 +169,10 @@
 			hpText.text = 'HP: ' + hp;
 			if (hp == 0){
 				player.kill();
-				alert('Game over!');
-				location.reload();
+				music1.stop();
+				music3.stop();
+				music2.play();
+				alertText.text = 'You Lose';
 			}
 			
 			}
@@ -175,8 +187,11 @@
 			score += 10;
 			scoreText.text = 'score: ' + score;
 			if (score == 50){
-				alert('Octocat wins!');
-				location.reload();
+				player.kill();
+				music1.stop();
+				music2.stop();
+				music3.play();
+				alertText.text = 'You Win';
 				
 			}
 			
