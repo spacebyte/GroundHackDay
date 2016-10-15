@@ -110,7 +110,7 @@
 			for (var i = 3; i < 9; i++)
 			{
 				//  Create a block inside of the 'blocks' group
-				var block = blocks.create(i * 100, 0, 'block');
+				var block = blocks.create(i * (50 + Math.random()*50), 0, 'block');
 
 				//  Let gravity do its thing
 				block.body.gravity.y = Math.random();
@@ -127,7 +127,7 @@
 			for (var i = 3; i < 8; i++)
 			{
 				//  Create a block inside of the 'blocks' group
-				var block2 = blocks2.create(i * 125, 0, 'block2');
+				var block2 = blocks2.create(i * (60 + Math.random()*60) , 0, 'block2');
 
 				//  Let gravity do its thing
 				block2.body.gravity.y = Math.random();
