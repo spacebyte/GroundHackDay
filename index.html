@@ -31,6 +31,9 @@
 			game.load.audio('music1', ['assets/audio/music1.mp3', 'assets/audio/music1.ogg']);
 			game.load.audio('music2', ['assets/audio/music2.mp3', 'assets/audio/music2.ogg']);
 			game.load.audio('music3', ['assets/audio/music3.mp3', 'assets/audio/music3.ogg']);
+			game.load.audio('coin', ['assets/audio/coin.mp3', 'assets/audio/coin.ogg']);
+			game.load.audio('jump', ['assets/audio/jump.mp3', 'assets/audio/jump.ogg']);
+			game.load.audio('explosion', ['assets/audio/explosion.mp3', 'assets/audio/explosion.ogg']);
 
         }
 
@@ -50,6 +53,9 @@
 		var music1;
 		var music2;
 		var music3;
+		var coin;
+		var jump;
+		var explosion;
 		var alert = "";
 		var alertText;
 
@@ -58,6 +64,9 @@
 			music1 = game.add.audio('music1');
 			music2 = game.add.audio('music2');
 			music3 = game.add.audio('music3');
+			coin = game.add.audio('coin');
+			jump = game.add.audio('jump');
+			explosion = game.add.audio('explosion');
 
 			music1.play();
 
@@ -189,6 +198,7 @@
 			block.kill();
 			hp--;
 			hpText.text = 'HP: ' + hp;
+			explosion.play();
 			if (hp == 0){
 				player.kill();
 				music1.stop();
@@ -208,6 +218,7 @@
 			block2.kill();
 			score += 10;
 			scoreText.text = 'Score: ' + score +'/50';
+			coin.play();
 			if (score == 50){
 				player.kill();
 				music1.stop();
@@ -233,7 +244,8 @@
 				music3.stop();
 				music2.play();
 				alertText.text = 'You Lose';
-				
+			
+	
 			}
 			
 			}
@@ -284,6 +296,7 @@
             {
                 player.body.velocity.y = -300;
                 jumpTimer = game.time.now + 750;
+				jump.play();
             }
 
         }
